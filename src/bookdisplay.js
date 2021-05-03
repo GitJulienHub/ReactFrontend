@@ -1,25 +1,6 @@
 import React from 'react';
 
-class CreateShelf extends React.Component {
-  render() {
-    return (
-      <button className="square">
-        {/* TODO */}
-      </button>
-    );
-  }
-}
 
-
-class CreateBook extends React.Component {
-  render() {
-    return (
-      <button className="square">
-        {/* TODO */}
-      </button>
-    );
-  }
-}
 
 class BookRow extends React.Component {
   render() {

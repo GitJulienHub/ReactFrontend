@@ -1,6 +1,6 @@
 import React from 'react';
 import BookDisplay from './bookdisplay.js'
-
+import CreateBook from './createbook.js'
 
 class BookStore extends React.Component {
 
@@ -26,6 +26,7 @@ class BookStore extends React.Component {
       case this.modeStates.createShelf:
           break;
       case this.modeStates.createBook:
+          return <CreateBook />;
           break;
       default:
           return <BookDisplay books={this.state.books} />;
@@ -40,7 +41,6 @@ class BookStore extends React.Component {
        className="allBooks"
        onClick={() => this.setState({mode: this.modeStates.allBooks})}
        >
-
       </button>
 
       <button
@@ -48,6 +48,7 @@ class BookStore extends React.Component {
        onClick={() => this.setState({mode: this.modeStates.createShelf})}
        >
        </button>
+
        <button
         className="createBook"
         onClick={() => this.setState({mode: this.modeStates.createBook})}
