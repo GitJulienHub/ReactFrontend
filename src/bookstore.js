@@ -1,6 +1,8 @@
 import React from 'react';
 import BookDisplay from './bookdisplay.js'
 import CreateBook from './createbook.js'
+import SearchBar from './searchbar.js'
+
 
 class BookStore extends React.Component {
 
@@ -14,14 +16,75 @@ class BookStore extends React.Component {
     this.state = {
       mode: this.modeStates.allBooks,
       books: null,
+
+      searchTitle: "",
+      searchAuthor: "",
     };
+    this.onSearchHandler = this.onSearchHandler.bind(this);
+    this.buildURL = this.buildURL.bind(this);
+    this.fetchBooks = this.fetchBooks.bind(this);
   }
+  buildURL(){
+    let url = ""
+    if(this.state.searchTitle != null && this.state.searchTitle != ""){
+
+      url+="&title="+this.state.searchTitle
+    }
+    if(this.state.searchAuthor != null && this.state.searchAuthor != ""){
+      url+="&author="+this.state.searchAuthor
+    }
+    url = url.replace('&','?')
+    return url
+  }
+  fetchBooks(){
+    alert("fetching books rn")
+    fetch("localhost:4000/books"+this.buildURL())
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              isLoaded: true,
+              items: result.items
+            });
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        )
+  }
+  componentDidUpdate() {
+  }
+  componentDidMount(){
+    this.fetchBooks()
+
+  }
+
+  onSearchHandler(bookTitle, bookAuthor){
+
+    this.setState({searchTitle: bookTitle,
+                    searchAuthor: bookAuthor}, function(){
+                      this.fetchBooks()
+                    })
+
+
+
+  }
+
   renderPage(){
-
-
     switch(this.state.mode){
       case this.modeStates.allBooks:
-          return <BookDisplay books={this.state.books} />;
+          return (
+            <div>
+              <SearchBar handler={this.onSearchHandler} />
+              <BookDisplay books={this.state.books} />
+            </div>
+          )
           break;
       case this.modeStates.createShelf:
           break;
