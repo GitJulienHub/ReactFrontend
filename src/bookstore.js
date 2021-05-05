@@ -38,7 +38,7 @@ class BookStore extends React.Component {
       url+="&title="+this.state.searchTitle
     }
     if(this.state.searchAuthor != null && this.state.searchAuthor != ""){
-      url+="&author="+this.state.searchAuthor
+      url+="&name="+this.state.searchAuthor
     }
     url = url.replace('&','?')
     return url
@@ -104,6 +104,7 @@ class BookStore extends React.Component {
         )
   }
   fetchBooks(){
+    console.log("whyyy")
     fetch("http://localhost:80/library/books/index.php" + this.buildURL(),{
       method: 'GET',
       mode: 'cors',
@@ -111,12 +112,13 @@ class BookStore extends React.Component {
         .then(res => res.json())
         .then(
           (result) => {
-            console.log(result);
+            console.log("postbooks?: "+result);
             this.setState({
               books: result
             });
           },
           (error) => {
+            console.log(error)
             this.setState({
               error
             });
@@ -137,11 +139,10 @@ class BookStore extends React.Component {
   onSearchHandler(bookTitle, bookAuthor){
 
     this.setState({searchTitle: bookTitle,
-                    searchAuthor: bookAuthor}, function(){
+                   searchAuthor: bookAuthor}, function(){
+                      console.log("prebooks "+this.state.books)
                       this.fetchBooks()
                     })
-
-
 
   }
 
