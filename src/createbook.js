@@ -40,7 +40,7 @@ class CreateBook extends React.Component {
       const shelfOptions = shelfs.map((shelf) => <option value={shelf.id}>{shelf.shelfdescr}</option>);
 
     return (
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} class="input">
           <input type="text" id="bookName" name="bookName" placeholder="bookName"/>
           <select name="authors" id="authors">
             {authorOptions}

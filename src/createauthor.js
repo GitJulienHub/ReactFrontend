@@ -19,7 +19,7 @@ class CreateAuthor extends React.Component {
   }
   render() {
     return (
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} class="input">
           <input type="text" id="authorName" name="authorName" placeholder="authorName"/>
           <input type="submit" />
         </form>

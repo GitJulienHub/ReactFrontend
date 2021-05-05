@@ -114,7 +114,6 @@ class BookRow extends React.Component {
           <td>{this.props.name}</td>
           <td><ShelfOptionSelect bookid={this.props.id} selectedShelfId={this.props.selectedShelfId} shelfs={this.props.shelfs}/></td>
           <td><StateOptionSelect bookid={this.props.id} selectedStateId={this.props.selectedStateId} states={this.props.states}/></td>
-          <td>{this.props.state}</td>
       </tr>
     );
   }
@@ -134,7 +133,7 @@ class BookDisplay extends React.Component {
   }
   render() {
     return (
-      <table class="styled-table">
+      <table id="books">
       <thead>
           <tr>
               <th>Titel</th>

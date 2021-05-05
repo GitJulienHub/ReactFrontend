@@ -191,7 +191,8 @@ class BookStore extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div class="content">
+      <div class="topnav">
       <button
        className="allBooks"
        onClick={() => this.setState({
@@ -220,6 +221,7 @@ class BookStore extends React.Component {
          >
          Author erstellen
          </button>
+         </div>
       {this.renderPage()}
 
       </div>
