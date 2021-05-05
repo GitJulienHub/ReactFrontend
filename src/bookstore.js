@@ -2,7 +2,7 @@ import React from 'react';
 import BookDisplay from './bookdisplay.js'
 import CreateBook from './createbook.js'
 import SearchBar from './searchbar.js'
-
+import CreateAuthor from './createauthor.js'
 
 class BookStore extends React.Component {
 
@@ -162,6 +162,7 @@ class BookStore extends React.Component {
           return <CreateBook authors={this.state.authors} shelfs={this.state.shelfs} states={this.state.states}/>;
           break;
       case this.modeStates.createAuthor:
+          return <CreateAuthor />
           break;
       default:
           return <BookDisplay books={this.state.books} />;
