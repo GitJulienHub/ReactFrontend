@@ -30,7 +30,17 @@ class BookStore extends React.Component {
     this.buildURL = this.buildURL.bind(this);
     this.fetchBooks = this.fetchBooks.bind(this);
     this.fetchStates = this.fetchStates.bind(this);
+    this.resetSearch = this.resetSearch.bind(this);
   }
+  resetSearch(){
+    this.setState({
+      searchTitle: "",
+      searchAuthor: ""
+    }, function(){
+       this.fetchBooks()
+     });
+  }
+
   buildURL(){
     let url = ""
     if(this.state.searchTitle != null && this.state.searchTitle != ""){
@@ -140,7 +150,6 @@ class BookStore extends React.Component {
 
     this.setState({searchTitle: bookTitle,
                    searchAuthor: bookAuthor}, function(){
-                      console.log("prebooks "+this.state.books)
                       this.fetchBooks()
                     })
 
@@ -151,7 +160,7 @@ class BookStore extends React.Component {
       case this.modeStates.allBooks:
           return (
             <div>
-              <SearchBar handler={this.onSearchHandler} />
+              <SearchBar handler={this.onSearchHandler} resetSearchHandler={this.resetSearch} />
               <BookDisplay books={this.state.books} />
             </div>
           )
@@ -160,8 +169,6 @@ class BookStore extends React.Component {
           return <CreateShelf />
           break;
       case this.modeStates.createBook:
-
-          console.log(this.state.shelfs)
           return <CreateBook authors={this.state.authors} shelfs={this.state.shelfs} states={this.state.states}/>;
           break;
       case this.modeStates.createAuthor:
@@ -178,7 +185,9 @@ class BookStore extends React.Component {
       <div>
       <button
        className="allBooks"
-       onClick={() => this.setState({mode: this.modeStates.allBooks})}
+       onClick={() => this.setState({
+         mode: this.modeStates.allBooks,
+       })}
        >
        Alle Buecher
       </button>

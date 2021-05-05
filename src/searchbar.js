@@ -11,9 +11,13 @@ class SearchBar extends React.Component {
     this.handleSearchChanged = this.handleSearchChanged.bind(this);
     this.handleTitleSearchChange = this.handleTitleSearchChange.bind(this);
     this.handleAuthorSearchChange = this.handleAuthorSearchChange.bind(this);
+    this.handleResetSearch = this.handleResetSearch.bind(this);
   }
   handleSearchChanged(){
     this.props.handler(this.state.name, this.state.author)
+  }
+  handleResetSearch(event){
+    this.props.resetSearchHandler()
   }
   handleTitleSearchChange(e){
     //this.setState({name: e.target.value});
@@ -34,12 +38,15 @@ class SearchBar extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <input type="text"  id="name" value={this.state.name} onChange={this.handleTitleSearchChange} name="name" placeholder="Name"/>
 
-          <input type="text"  id="author"value={this.state.author} onChange={this.handleAuthorSearchChange} name="bookAuthor" placeholder="Book Author"/>
+          <input type="text"  id="author"value={this.state.author} onChange={this.handleAuthorSearchChange} name="author" placeholder="Book Author"/>
 
 
             <button type="submit" onClick = {this.handleSearchChanged}>
             Suchen
              </button>
+             <button name="reset" type="reset" onClick = {this.handleResetSearch}>
+             Reset
+              </button>
           </form>
       );
   }
