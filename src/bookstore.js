@@ -28,6 +28,7 @@ class BookStore extends React.Component {
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.buildURL = this.buildURL.bind(this);
     this.fetchBooks = this.fetchBooks.bind(this);
+    this.fetchStates = this.fetchStates.bind(this);
   }
   buildURL(){
     let url = ""
@@ -123,6 +124,7 @@ class BookStore extends React.Component {
   }
   componentDidUpdate() {
     console.log("boooooooooks:" +this.state.books)
+    console.log("states:" +this.state.states)
   }
   componentDidMount(){
     this.fetchBooks()
@@ -153,7 +155,8 @@ class BookStore extends React.Component {
       case this.modeStates.createShelf:
           break;
       case this.modeStates.createBook:
-          return <CreateBook />;
+          this.fetchStates()
+          return <CreateBook authors={this.state.authors} shelfs={this.state.shelfs} states={this.state.states}/>;
           break;
       case this.modeStates.createAuthor:
           break;
