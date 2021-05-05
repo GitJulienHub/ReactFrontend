@@ -17,6 +17,7 @@ class BookStore extends React.Component {
     }
     this.state = {
       mode: this.modeStates.allBooks,
+      lastMode: this.modeStates.allBooks,
       books: null,
       authors: null,
       shelfs: null,
@@ -31,6 +32,7 @@ class BookStore extends React.Component {
     this.fetchBooks = this.fetchBooks.bind(this);
     this.fetchStates = this.fetchStates.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
+    this.refreshData = this.refreshData.bind(this);
   }
   resetSearch(){
     this.setState({
@@ -140,6 +142,9 @@ class BookStore extends React.Component {
     console.log("states:" +this.state.states)
   }
   componentDidMount(){
+    this.refreshData()
+  }
+  refreshData(){
     this.fetchBooks()
     this.fetchStates()
     this.fetchAuthors()
@@ -156,6 +161,10 @@ class BookStore extends React.Component {
   }
 
   renderPage(){
+    if(this.state.mode != this.state.lastMode){
+      this.refreshData()
+      this.state.lastMode = this.state.mode
+    }
     switch(this.state.mode){
       case this.modeStates.allBooks:
           return (
