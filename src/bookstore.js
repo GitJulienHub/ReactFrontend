@@ -50,7 +50,7 @@ class BookStore extends React.Component {
         .then(res => res.json())
         .then(
           (result) => {
-            console.log(result);
+            console.log("getting the authors:"+ result);
             this.setState({
               authors: result
             });
@@ -128,7 +128,9 @@ class BookStore extends React.Component {
   }
   componentDidMount(){
     this.fetchBooks()
-
+    this.fetchStates()
+    this.fetchAuthors()
+    this.fetchShelfs()
   }
 
   onSearchHandler(bookTitle, bookAuthor){
@@ -155,7 +157,8 @@ class BookStore extends React.Component {
       case this.modeStates.createShelf:
           break;
       case this.modeStates.createBook:
-          this.fetchStates()
+
+          console.log(this.state.shelfs)
           return <CreateBook authors={this.state.authors} shelfs={this.state.shelfs} states={this.state.states}/>;
           break;
       case this.modeStates.createAuthor:
