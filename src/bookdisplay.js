@@ -3,21 +3,21 @@ import React from 'react';
 
 
 class StateOptionSelect extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      bookid: null
+    }
+  this.handleStateChanged = this.handleStateChanged.bind(this);
+  }
+
     handleStateChanged(event){
-      fetch("http://localhost:80/library/books/update/index.php",{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*',
-          "Access-Control-Allow": "*",
-          "Access-Control-Allow-Headers": "*",
-          'Access-Control-Allow-Origin': '*',
-       },
-        body: JSON.stringify({
-            stateid: event.target.value,
-           })
+      fetch("http://localhost:80/library/books/update/index.php?"+
+      "stateid="+event.target.value +
+      "&bookid="+this.state.bookid
+      ,{
+        method: 'GET',
       })
-          .then(res => res.json())
           .then(
             (result) => {
               console.log(result)
@@ -28,7 +28,7 @@ class StateOptionSelect extends React.Component{
           )
     }
     render(){
-
+      this.state.bookid = this.props.bookid
       const selectedStateId = this.props.selectedStateId
       const states = this.props.states
       const stateOptions = states.map(
@@ -50,21 +50,20 @@ class StateOptionSelect extends React.Component{
 
 }
 class ShelfOptionSelect extends React.Component{
+    constructor(){
+      super()
+      this.state={
+        bookid: null
+      }
+    this.handleShelfChanged = this.handleShelfChanged.bind(this);
+    }
     handleShelfChanged(event){
-      fetch("http://localhost:80/library/books/update/index.php",{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*',
-          "Access-Control-Allow": "*",
-          "Access-Control-Allow-Headers": "*",
-          'Access-Control-Allow-Origin': '*',
-       },
-        body: JSON.stringify({
-            shelfid: event.target.value,
-           })
+      fetch("http://localhost:80/library/books/update/index.php?"+
+      "shelfid="+event.target.value +
+      "&bookid="+this.state.bookid
+      ,{
+        method: 'GET',
       })
-          .then(res => res.json())
           .then(
             (result) => {
               console.log(result)
@@ -75,7 +74,7 @@ class ShelfOptionSelect extends React.Component{
           )
     }
     render(){
-
+      this.state.bookid = this.props.bookid
       const selectedShelfId = this.props.selectedShelfId
       const shelfs = this.props.shelfs
       const shelfOptions = shelfs.map(
@@ -89,7 +88,6 @@ class ShelfOptionSelect extends React.Component{
         );
 
       const nullOption = (function(){
-          console.log("EXUEUDUUD")
           if(selectedShelfId === "null"){
             return <option selected value="null">none</option>
           }
@@ -114,8 +112,8 @@ class BookRow extends React.Component {
       <tr>
           <td>{this.props.title}</td>
           <td>{this.props.name}</td>
-          <td><ShelfOptionSelect selectedShelfId={this.props.selectedShelfId} shelfs={this.props.shelfs}/></td>
-          <td><StateOptionSelect selectedStateId={this.props.selectedStateId} states={this.props.states}/></td>
+          <td><ShelfOptionSelect bookid={this.props.id} selectedShelfId={this.props.selectedShelfId} shelfs={this.props.shelfs}/></td>
+          <td><StateOptionSelect bookid={this.props.id} selectedStateId={this.props.selectedStateId} states={this.props.states}/></td>
           <td>{this.props.state}</td>
       </tr>
     );
