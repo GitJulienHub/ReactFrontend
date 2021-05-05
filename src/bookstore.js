@@ -161,7 +161,7 @@ class BookStore extends React.Component {
           return (
             <div>
               <SearchBar handler={this.onSearchHandler} resetSearchHandler={this.resetSearch} />
-              <BookDisplay books={this.state.books} />
+              <BookDisplay books={this.state.books} shelfs={this.state.shelfs} states={this.state.states} />
             </div>
           )
           break;
