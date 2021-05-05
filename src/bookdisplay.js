@@ -128,8 +128,10 @@ class BookDisplay extends React.Component {
       <table class="styled-table">
       <thead>
           <tr>
-              <th>Name</th>
-              <th>Points</th>
+              <th>Titel</th>
+              <th>Author</th>
+              <th>Regal</th>
+              <th>Status</th>
           </tr>
       </thead>
       <tbody>
