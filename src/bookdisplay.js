@@ -80,16 +80,27 @@ class ShelfOptionSelect extends React.Component{
       const shelfs = this.props.shelfs
       const shelfOptions = shelfs.map(
         function(shelf) {
-          if(shelf.id === selectedShelfId){
-            return <option  selected value={shelf.id}>{shelf.shelfdescr}</option>
+          if(shelf.id != selectedShelfId || selectedShelfId == null){
+            return <option  value={shelf.id}>{shelf.shelfdescr}</option>
           }
-          return <option  value={shelf.id}>{shelf.shelfdescr}</option>
+          return <option  selected value={shelf.id}>{shelf.shelfdescr}</option>
+
         }
         );
+
+      const nullOption = (function(){
+          console.log("EXUEUDUUD")
+          if(selectedShelfId === "null"){
+            return <option selected value="null">none</option>
+          }
+            return <option value="null">none</option>
+        })();
+
 
 
       return(
         <select onChange={this.handleShelfChanged} name="shelfs" id="shelfs">
+          {nullOption}
           {shelfOptions}
         </select>
       )
