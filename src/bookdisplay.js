@@ -4,6 +4,30 @@ import React from 'react';
 
 
 class ShelfOptionSelect extends React.Component{
+    handleShelfChanged(event){
+      fetch("http://localhost:80/library/books/update/index.php",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*',
+          "Access-Control-Allow": "*",
+          "Access-Control-Allow-Headers": "*",
+          'Access-Control-Allow-Origin': '*',
+       },
+        body: JSON.stringify({
+            shelfid: event.target.shelfs.value,
+           })
+      })
+          .then(res => res.json())
+          .then(
+            (result) => {
+              console.log(result)
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+    }
     render(){
 
       const selectedShelfId = this.props.selectedShelfId
@@ -11,15 +35,15 @@ class ShelfOptionSelect extends React.Component{
       const shelfOptions = shelfs.map(
         function(shelf) {
           if(shelf.id === selectedShelfId){
-            return <option selected value={shelf.id}>{shelf.shelfdescr}</option>
+            return <option  selected value={shelf.id}>{shelf.shelfdescr}</option>
           }
-          return <option value={shelf.id}>{shelf.shelfdescr}</option>
+          return <option  value={shelf.id}>{shelf.shelfdescr}</option>
         }
         );
 
 
       return(
-        <select name="shelfs" id="shelfs">
+        <select onChange={this.handleShelfChanged} name="shelfs" id="shelfs">
           {shelfOptions}
         </select>
       )
