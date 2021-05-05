@@ -17,6 +17,9 @@ class BookStore extends React.Component {
     this.state = {
       mode: this.modeStates.allBooks,
       books: null,
+      authors: null,
+      shelfs: null,
+      states: null,
 
       searchTitle: "",
       searchAuthor: "",
@@ -38,6 +41,66 @@ class BookStore extends React.Component {
     url = url.replace('&','?')
     return url
   }
+  fetchAuthors(){
+    fetch("http://localhost:80/library/authors/index.php",{
+      method: 'GET',
+      mode: 'cors',
+    })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result);
+            this.setState({
+              authors: result
+            });
+          },
+          (error) => {
+            this.setState({
+              error
+            });
+          }
+        )
+  }
+  fetchShelfs(){
+    fetch("http://localhost:80/library/shelfs/index.php",{
+      method: 'GET',
+      mode: 'cors',
+    })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result);
+            this.setState({
+              shelfs: result
+            });
+          },
+          (error) => {
+            this.setState({
+              error
+            });
+          }
+        )
+  }
+  fetchStates(){
+    fetch("http://localhost:80/library/states/index.php",{
+      method: 'GET',
+      mode: 'cors',
+    })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            console.log(result);
+            this.setState({
+              states: result
+            });
+          },
+          (error) => {
+            this.setState({
+              error
+            });
+          }
+        )
+  }
   fetchBooks(){
     fetch("http://localhost:80/library/books/index.php" + this.buildURL(),{
       method: 'GET',
@@ -48,16 +111,11 @@ class BookStore extends React.Component {
           (result) => {
             console.log(result);
             this.setState({
-              isLoaded: true,
               books: result
             });
           },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
           (error) => {
             this.setState({
-              isLoaded: true,
               error
             });
           }
