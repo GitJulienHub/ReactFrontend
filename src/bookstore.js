@@ -12,6 +12,7 @@ class BookStore extends React.Component {
       allBooks: 1,
       createShelf: 2,
       createBook: 3,
+      createAuthor: 4,
     }
     this.state = {
       mode: this.modeStates.allBooks,
@@ -63,7 +64,6 @@ class BookStore extends React.Component {
         )
   }
   componentDidUpdate() {
-    alert("upa")
     console.log("boooooooooks:" +this.state.books)
   }
   componentDidMount(){
@@ -97,6 +97,8 @@ class BookStore extends React.Component {
       case this.modeStates.createBook:
           return <CreateBook />;
           break;
+      case this.modeStates.createAuthor:
+          break;
       default:
           return <BookDisplay books={this.state.books} />;
     }
@@ -110,19 +112,28 @@ class BookStore extends React.Component {
        className="allBooks"
        onClick={() => this.setState({mode: this.modeStates.allBooks})}
        >
+       Alle Buecher
       </button>
 
       <button
        className="createShelf"
        onClick={() => this.setState({mode: this.modeStates.createShelf})}
        >
+       Buecherregal erstellen
        </button>
 
        <button
         className="createBook"
         onClick={() => this.setState({mode: this.modeStates.createBook})}
         >
+        Buch erstellen
         </button>
+        <button
+         className="createAuthor"
+         onClick={() => this.setState({mode: this.modeStates.createAuthor})}
+         >
+         Author erstellen
+         </button>
       {this.renderPage()}
 
       </div>
