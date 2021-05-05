@@ -5,20 +5,9 @@ class CreateAuthor extends React.Component {
   handleSubmit(event){
     event.preventDefault();
 
-    fetch("http://localhost:80/library/authors/create/index.php",{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': '*',
-        "Access-Control-Allow": "*",
-        "Access-Control-Allow-Headers": "*",
-        'Access-Control-Allow-Origin': '*',
-     },
-      body: JSON.stringify({
-          name: event.target.authorName.value,
-         })
+    fetch("http://localhost/library/authors/create/index.php?name="+event.target.authorName.value,{
+      method: 'GET',
     })
-        .then(res => res.json())
         .then(
           (result) => {
             console.log(result)

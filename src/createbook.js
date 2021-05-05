@@ -6,31 +6,23 @@ class CreateBook extends React.Component {
     event.preventDefault();
     //console.log(event.target.authors.value)
 
-    fetch("http://localhost:80/library/books/create/index.php",{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': '*',
-        "Access-Control-Allow": "*",
-        "Access-Control-Allow-Headers": "*",
-        'Access-Control-Allow-Origin': '*',
-     },
-      body: JSON.stringify({
-          title: event.target.bookName.value,
-          state: event.target.states.value,
-          shelf: event.target.shelfs.value,
-          author: event.target.authors.value
-         })
-    })
-        .then(res => res.json())
-        .then(
-          (result) => {
-            console.log(result)
-          },
-          (error) => {
-            console.log(error)
-          }
-        )
+
+    fetch("http://localhost:80/library/books/create/index.php?" +
+          "title="+event.target.bookName.value +
+          "&stateid="+event.target.states.value +
+          "&shelfid="+ event.target.shelfs.value +
+          "&authorid="+ event.target.authors.value
+          ,{
+          method: 'GET',
+        })
+            .then(
+              (result) => {
+                console.log(result)
+              },
+              (error) => {
+                console.log(error)
+              }
+            )
   }
   render() {
     const states = this.props.states

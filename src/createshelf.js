@@ -5,14 +5,23 @@ class CreateShelf extends React.Component {
   handleSubmit(event){
     event.preventDefault();
 
+
+        fetch("http://localhost/library/shelfs/create/index.php?shelfdescr="+event.target.shelfdescr.value,{
+          method: 'GET',
+        })
+            .then(
+              (result) => {
+                console.log(result)
+              },
+              (error) => {
+                console.log(error)
+              }
+            )
+/*
     fetch("http://localhost:80/library/shelfs/create/index.php",{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': '*',
-        "Access-Control-Allow": "*",
-        "Access-Control-Allow-Headers": "*",
-        'Access-Control-Allow-Origin': '*',
      },
       body: JSON.stringify({
           shelfdescr: event.target.shelfdescr.value,
@@ -27,6 +36,7 @@ class CreateShelf extends React.Component {
             console.log(error)
           }
         )
+*/
   }
   render() {
     return (
