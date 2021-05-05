@@ -19,6 +19,7 @@ class BookStore extends React.Component {
 
       searchTitle: "",
       searchAuthor: "",
+
     };
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.buildURL = this.buildURL.bind(this);
@@ -37,14 +38,17 @@ class BookStore extends React.Component {
     return url
   }
   fetchBooks(){
-    alert("fetching books rn")
-    fetch("localhost:4000/books"+this.buildURL())
+    fetch("http://localhost:80/library/books/index.php" + this.buildURL(),{
+      method: 'GET',
+      mode: 'cors',
+    })
         .then(res => res.json())
         .then(
           (result) => {
+            console.log(result);
             this.setState({
               isLoaded: true,
-              items: result.items
+              books: result
             });
           },
           // Note: it's important to handle errors here
@@ -59,6 +63,8 @@ class BookStore extends React.Component {
         )
   }
   componentDidUpdate() {
+    alert("upa")
+    console.log("boooooooooks:" +this.state.books)
   }
   componentDidMount(){
     this.fetchBooks()
