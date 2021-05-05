@@ -2,7 +2,53 @@ import React from 'react';
 
 
 
+class StateOptionSelect extends React.Component{
+    handleStateChanged(event){
+      fetch("http://localhost:80/library/books/update/index.php",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*',
+          "Access-Control-Allow": "*",
+          "Access-Control-Allow-Headers": "*",
+          'Access-Control-Allow-Origin': '*',
+       },
+        body: JSON.stringify({
+            stateid: event.target.value,
+           })
+      })
+          .then(res => res.json())
+          .then(
+            (result) => {
+              console.log(result)
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+    }
+    render(){
 
+      const selectedStateId = this.props.selectedStateId
+      const states = this.props.states
+      const stateOptions = states.map(
+        function(state) {
+          if(state.id === selectedStateId){
+            return <option  selected value={state.id}>{state.state}</option>
+          }
+          return <option  value={state.id}>{state.state}</option>
+        }
+        );
+
+
+      return(
+        <select onChange={this.handleStateChanged} name="states" id="states">
+          {stateOptions}
+        </select>
+      )
+    }
+
+}
 class ShelfOptionSelect extends React.Component{
     handleShelfChanged(event){
       fetch("http://localhost:80/library/books/update/index.php",{
@@ -15,7 +61,7 @@ class ShelfOptionSelect extends React.Component{
           'Access-Control-Allow-Origin': '*',
        },
         body: JSON.stringify({
-            shelfid: event.target.shelfs.value,
+            shelfid: event.target.value,
            })
       })
           .then(res => res.json())
@@ -58,6 +104,7 @@ class BookRow extends React.Component {
           <td>{this.props.title}</td>
           <td>{this.props.name}</td>
           <td><ShelfOptionSelect selectedShelfId={this.props.selectedShelfId} shelfs={this.props.shelfs}/></td>
+          <td><StateOptionSelect selectedStateId={this.props.selectedStateId} states={this.props.states}/></td>
           <td>{this.props.state}</td>
       </tr>
     );
@@ -74,7 +121,7 @@ class BookDisplay extends React.Component {
       return
     }
 
-    return books.map((book) => <BookRow id={book.id} title={book.title} name={book.name} selectedShelfId={book.shelfid} state={book.state} shelfs={shelfs} states={states} />);
+    return books.map((book) => <BookRow id={book.id} title={book.title} name={book.name} selectedShelfId={book.shelfid} shelfs={shelfs} selectedStateId={book.stateid} states={states} />);
   }
   render() {
     return (
