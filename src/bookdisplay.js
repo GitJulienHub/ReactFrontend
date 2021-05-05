@@ -6,7 +6,6 @@ class BookRow extends React.Component {
   render() {
     return (
       <tr>
-          <td>{this.props.id}</td>
           <td>{this.props.title}</td>
           <td>{this.props.name}</td>
           <td>{this.props.shelfdescr}</td>
