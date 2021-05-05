@@ -3,6 +3,7 @@ import BookDisplay from './bookdisplay.js'
 import CreateBook from './createbook.js'
 import SearchBar from './searchbar.js'
 import CreateAuthor from './createauthor.js'
+import CreateShelf from './createshelf.js'
 
 class BookStore extends React.Component {
 
@@ -155,6 +156,7 @@ class BookStore extends React.Component {
           )
           break;
       case this.modeStates.createShelf:
+          return <CreateShelf />
           break;
       case this.modeStates.createBook:
 
