@@ -41,7 +41,7 @@ class CreateBook extends React.Component {
 
     return (
         <form onSubmit={this.handleSubmit} class="input">
-          <input type="text" id="bookName" name="bookName" placeholder="bookName"/>
+          <input type="text" id="bookName" name="bookName" placeholder="Buch Name"/>
           <select name="authors" id="authors">
             {authorOptions}
           </select>

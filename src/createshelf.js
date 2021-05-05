@@ -41,7 +41,7 @@ class CreateShelf extends React.Component {
   render() {
     return (
         <form onSubmit={this.handleSubmit} class="input">
-          <input type="text" id="shelfdescr" name="shelfdescr" placeholder="shelfdescr"/>
+          <input type="text" id="shelfdescr" name="shelfdescr" placeholder="Regal Bezeichnung"/>
           <input type="submit" />
         </form>
       );
